@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Link } from 'react-router-dom'; // Importa Link desde react-router-dom
+import { Link } from 'react-router-dom';
 
 class FormularioFinalizacion extends Component {
   constructor(props) {
@@ -38,6 +38,12 @@ class FormularioFinalizacion extends Component {
     }));
   }
 
+  handleRemoveCampo = (campo, index) => {
+    const items = [...this.state[campo]];
+    items.splice(index, 1);
+    this.setState({ [campo]: items });
+  }
+
   handleSubmit = (event) => {
     event.preventDefault();
   }
@@ -54,7 +60,7 @@ class FormularioFinalizacion extends Component {
     }
 
     return (
-        <div className="container formulario-container">
+      <div className="container formulario-container">
         <form onSubmit={this.handleSubmit}>
           <div className="form-group row">
             <label htmlFor="dia" className="col-sm-2 col-form-label">Día:</label>
@@ -80,21 +86,21 @@ class FormularioFinalizacion extends Component {
           </div>
           <div className="form-group">
             <label>Estrategias Pedagógicas:</label>
-              {this.state.estrategias.map((estrategia, index) => (
-                <div className="input-group mb-2" key={`estrategia-${index}`}>
-                  <input
-                    type="text"
-                    name="estrategias"
-                    value={estrategia}
-                    onChange={(event) => this.handleInputChangeEstrategias(event, index)}
-                    className="form-control"
-                  />
-                  <div className="input-group-append">
-                    <button type="button" onClick={() => this.handleRemoveCampo('estrategias', index)} className="btn btn-danger">Eliminar</button>
-                    <button type="button" onClick={() => this.handleAddCampo('estrategias')} className="btn btn-primary">Agregar Estrategia</button>
-                  </div>
+            {this.state.estrategias.map((estrategia, index) => (
+              <div className="input-group mb-2" key={`estrategia-${index}`}>
+                <input
+                  type="text"
+                  name="estrategias"
+                  value={estrategia}
+                  onChange={(event) => this.handleInputChangeEstrategias(event, index)}
+                  className="form-control"
+                />
+                <div className="input-group-append">
+                  <button type="button" onClick={() => this.handleRemoveCampo('estrategias', index)} className="btn btn-danger">Eliminar</button>
+                  <button type="button" onClick={() => this.handleAddCampo('estrategias')} className="btn btn-primary">Agregar Estrategia</button>
                 </div>
-              ))}
+              </div>
+            ))}
           </div>
           <div className="form-group">
             <label>Alistamiento:</label>
@@ -115,11 +121,11 @@ class FormularioFinalizacion extends Component {
             ))}
           </div>
           <div className="form-group row">
-              <div className="col-sm-12 mb-3">
-                <button type="submit" className="btn btn-primary">Enviar</button>
-              </div>
+            <div className="col-sm-12 mb-3">
+              <button type="submit" className="btn btn-primary">Enviar</button>
             </div>
-          </form>
+          </div>
+        </form>
         <div className="mt-3">
           <Link to="/desarrollo" className="btn btn-secondary mr-2">Volver</Link>
           <button className="btn btn-success">Generar PDF</button>
