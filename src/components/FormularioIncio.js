@@ -76,7 +76,7 @@ class FormularioInicio extends Component {
           </div>
         </div>
         <div className="form-group row">
-          <label htmlFor="hora" className="col-sm-2 col-form-label">Hora:</label>
+          <label htmlFor="hora" className="col-sm-2 col-form-label">Horario:</label>
           <div className="col-sm-10">
             <select className="form-control" id="hora" name="hora" onChange={this.handleInputChange}>
               <option value="">Selecciona una hora</option>
