@@ -1,29 +1,29 @@
-import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import '../assets/css/App.css';
+import '../scss/style.scss'
+import React, {Suspense } from 'react'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { Provider } from 'react-redux'
+import {store} from '../states/store'
 
-import PaginaPrincipal from '../pages/PaginaPrincipal';
-import PaginaInicio from '../pages/PaginaInicio';
-import PaginaDesarrollo from '../pages/PaginaDesarrollo';
-import PaginaFinalizacion from '../pages/PaginaFinalizacion';
+const Navegacion = React.lazy(() => import('../layouts/Navegacion'))
+
+const loading = (
+  <div className="pt-3 text-center">
+    <div className="sk-spinner sk-spinner-pulse"></div>
+  </div>
+)
 
 function App() {
   return (
-    <Router>
-      <Switch>
-        <Route path="/inicio">
-          <PaginaInicio />
-        </Route>
-        <Route path="/desarrollo">
-          <PaginaDesarrollo />
-        </Route>
-        <Route path="/finalizacion">
-          <PaginaFinalizacion />
-        </Route>
-        <Route path="/">
-          <PaginaPrincipal />
-        </Route>
-      </Switch>
-    </Router>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Suspense fallback={loading}>
+          <Routes>
+            <Route path="*" name="Home" element={<Navegacion />} />
+          </Routes>
+        </Suspense>
+      </BrowserRouter>
+    </Provider>
   );
 }
 

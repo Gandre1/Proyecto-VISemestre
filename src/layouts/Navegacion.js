@@ -1,16 +1,19 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react'
+import { AppContent, AppFooter, AppHeader } from '../components/index'
 
-function Navegacion() {
+const Navegacion = () => {
   return (
-    <nav>
-      <ul>
-        <li>
-          <Link to="/">Inicio</Link>
-        </li>
-      </ul>
-    </nav>
-  );
+    <div>
+      
+      <div className="wrapper d-flex flex-column min-vh-100 bg-light">
+        <AppHeader />
+        <div className="body flex-grow-1 px-3">
+          <AppContent />
+        </div>
+        <AppFooter />
+      </div>
+    </div>
+  )
 }
 
-export { Navegacion };
+export default Navegacion
