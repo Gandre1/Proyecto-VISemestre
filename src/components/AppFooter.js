@@ -9,6 +9,7 @@ const AppFooter = () => {
           Gexon Rodriguez
         </a>
         <span className="ms-1">&copy; 2023.</span>
+      </div>
     </CFooter>
   )
 }
