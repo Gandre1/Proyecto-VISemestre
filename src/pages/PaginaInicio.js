@@ -5,7 +5,6 @@ import Navbar from '../components/Navbar';
 function PaginaInicio() {
   return (
     <div>
-      <Navbar />
       <center><h1>Inicio</h1></center>
       <FormularioInicio />
     </div>
