@@ -1,6 +1,5 @@
 import React from 'react';
 import FormularioInicio from '../components/FormularioInicio';
-import Navbar from '../components/Navbar';
 
 function PaginaInicio() {
   return (
