@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Link } from 'react-router-dom';  
+import { Link } from 'react-router-dom';
+import dayjs from 'dayjs'; 
 
 class FormularioInicio extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dia: '',
-      hora: '',
+      dia: new Date(),
+      hora: dayjs().format('HH:mm'), 
       estrategias: [''],
       alistamiento: [''],
     };
   }
+
 
   handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -48,46 +52,41 @@ class FormularioInicio extends Component {
     event.preventDefault();
   }
 
+  
+
   render() {
-    const optionsHora = [];
-    for (let hour = 6; hour <= 22; hour++) {
-      const formattedHour = `${hour.toString().padStart(2, '0')}:00`;
-      optionsHora.push(
-        <option key={formattedHour} value={formattedHour}>
-          {formattedHour}
-        </option>
-      );
-    }
 
     return (
-    <div className="container formulario-container">
+    <div className="container form-container">
       <form onSubmit={this.handleSubmit}>
         <div className="form-group row">
-          <label htmlFor="dia" className="col-sm-2 col-form-label">Día:</label>
-          <div className="col-sm-10">
-            <select className="form-control" id="dia" name="dia" onChange={this.handleInputChange}>
-              <option value="">Selecciona un día</option>
-              <option value="lunes">Lunes</option>
-              <option value="martes">Martes</option>
-              <option value="miércoles">Miércoles</option>
-              <option value="jueves">Jueves</option>
-              <option value="viernes">Viernes</option>
-            </select>
-          </div>
+            <label htmlFor="dia" className="col-sm-2 col-form-label">Día:</label>
+            <div className="col-sm-10">
+              <DatePicker
+                selected={this.state.dia}
+                onChange={date => this.setState({ dia: date })}
+                dateFormat="dd/MM/yyyy"
+              />
+            </div>
         </div>
         <div className="form-group row">
           <label htmlFor="hora" className="col-sm-2 col-form-label">Horario:</label>
-          <div className="col-sm-10">
-            <select className="form-control" id="hora" name="hora" onChange={this.handleInputChange}>
-              <option value="">Selecciona una hora</option>
-              {optionsHora}
-            </select>
+          <div className="col-sm-2 col-form-label ">
+          <input
+                type="time"
+                name="hora"
+                value={this.state.hora}
+                onChange={(e) => this.setState({ hora: e.target.value })}
+                className="form-control"
+                placeholder="HH:mm"
+              />
           </div>
         </div>
         <div className="form-group">
           <label>Estrategias Pedagógicas:</label>
+          <button type="button" onClick={() => this.handleAddCampo('estrategias')} className="btn btn-primary ">Agregar Estrategia</button>
             {this.state.estrategias.map((estrategia, index) => (
-              <div className="input-group mb-2" key={`estrategia-${index}`}>
+              <div className="input-group mb-2 col-sm-2 col-form-label" key={`estrategia-${index}`}>
                 <input
                   type="text"
                   name="estrategias"
@@ -97,15 +96,15 @@ class FormularioInicio extends Component {
                 />
                 <div className="input-group-append">
                   <button type="button" onClick={() => this.handleRemoveCampo('estrategias', index)} className="btn btn-danger">Eliminar</button>
-                  <button type="button" onClick={() => this.handleAddCampo('estrategias')} className="btn btn-primary">Agregar Estrategia</button>
                 </div>
               </div>
             ))}
         </div>
         <div className="form-group">
           <label>Alistamiento:</label>
+          <button type="button" onClick={() => this.handleAddCampo('alistamiento')} className="btn btn-primary">Agregar Alistamiento</button>
           {this.state.alistamiento.map((alistamiento, index) => (
-            <div className="input-group mb-2" key={`alistamiento-${index}`}>
+            <div className="input-group mb-2 col-sm-2 col-form-label" key={`alistamiento-${index}`}>
               <input
                 type="text"
                 name="alistamiento"
@@ -115,19 +114,16 @@ class FormularioInicio extends Component {
               />
               <div className="input-group-append">
                 <button type="button" onClick={() => this.handleRemoveCampo('alistamiento', index)} className="btn btn-danger">Eliminar</button>
-                <button type="button" onClick={() => this.handleAddCampo('alistamiento')} className="btn btn-primary">Agregar Alistamiento</button>
               </div>
             </div>
           ))}
         </div>
         <div className="form-group row">
             <div className="col-sm-12 mb-3">
-              <button type="submit" className="btn btn-primary">Enviar</button>
             </div>
           </div>
         </form>
         <div className="mt-3">
-          <Link to="/" className="btn btn-secondary mr-2">Volver</Link>
           <Link to="/desarrollo" className="btn btn-primary">Siguiente</Link>
         </div>
       </div>
