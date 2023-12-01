@@ -6,7 +6,6 @@ function PaginaFinalizacion() {
     <div>
       <center><h1>Finalización</h1></center>
       <FormularioFinalizacion />
-      
     </div>
   );
 }
